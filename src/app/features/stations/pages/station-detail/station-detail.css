@@ -1,0 +1,25 @@
+.station-detail {
+  padding: 20px 16px;
+}
+
+header {
+  margin-bottom: 24px;
+}
+
+header > a {
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+header p {
+  margin: 0 0 8px;
+}
+
+h1,
+h2 {
+  margin-top: 0;
+}
+
+section {
+  margin-bottom: 24px;
+}

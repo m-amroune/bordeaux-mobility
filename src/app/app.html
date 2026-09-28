@@ -1,0 +1,15 @@
+<nav aria-label="Navigation principale">
+  <a
+    routerLink="/"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    Stations
+  </a>
+
+  <a routerLink="/favorites" routerLinkActive="active">
+    Favoris
+  </a>
+</nav>
+
+<router-outlet />
