@@ -1,0 +1,20 @@
+.favorites {
+  padding: 20px 16px;
+}
+
+header {
+  margin-bottom: 24px;
+}
+
+header p {
+  margin: 0 0 8px;
+}
+
+h1,
+h2 {
+  margin-top: 0;
+}
+
+section {
+  margin-bottom: 24px;
+}

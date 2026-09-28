@@ -1,0 +1,33 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  padding-bottom: 64px;
+}
+
+nav {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: space-around;
+
+  background: #f7f3ea;
+  border-top: 1px solid #d9d2c5;
+}
+
+nav a {
+  flex: 1;
+  padding: 16px 8px;
+
+  color: #285a70;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+nav a.active {
+  background: #285a70;
+  color: #f7f3ea;
+}
