@@ -13,9 +13,33 @@
     />
   </section>
 
-  <section aria-labelledby="stations-heading">
-    <h2 id="stations-heading">Stations disponibles</h2>
+<section aria-labelledby="stations-heading">
+  <h2 id="stations-heading">Stations disponibles</h2>
 
-    <p>Les stations seront affichées ici.</p>
-  </section>
+  @if (stationsState$ | async; as state) {
+    @if (state.status === 'loading') {
+      <p>Chargement des stations...</p>
+    }
+
+    @if (state.status === 'error') {
+      <p>Impossible de charger les stations.</p>
+    }
+
+    @if (state.status === 'success') {
+      @if (state.stations.length === 0) {
+        <p>Aucune station disponible.</p>
+      } @else {
+        <p>{{ state.stations.length }} stations</p>
+
+        @for (station of state.stations; track station.id) {
+          <article>
+            <h3>{{ station.name }}</h3>
+            <p>Vélos disponibles : {{ station.bikesAvailable }}</p>
+            <p>Places disponibles : {{ station.docksAvailable }}</p>
+          </article>
+        }
+      }
+    }
+  }
+</section>
 </main>
