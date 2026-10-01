@@ -1,83 +1,59 @@
-# Bordeaux Mobility
+# BordeauxMobility
 
-Real-time bike station explorer for Bordeaux Métropole built with Angular and TypeScript.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.0.
 
-[Live Demo](https://bordeaux-mobility-m-a.vercel.app/)
+## Development server
 
----
-
-## About the Project
-
-### Objective
-
-Build a responsive application for exploring bike station availability across Bordeaux Métropole using public open data.
-
-The project focuses on:
-
-- Modern Angular development with standalone components
-- Bordeaux Métropole Open Data API integration
-- Reactive data flows with RxJS
-- Angular Signals and Reactive Forms
-- Search and availability filtering
-- Responsive, mobile-first interface
-- Loading, error and empty states
-- Maintainable feature-based structure
-
-The project is currently under development.
-
----
-
-## Features
-
-- Display real-time bike stations from Bordeaux Métropole Open Data
-- Search stations by name
-- Filter stations with available bikes
-- Filter stations with available docks
-- Display the number of available bikes and docks
-- View detailed information for each station
-- Display classic and electric bike availability
-- Display station status and last update time
-- Manually refresh station data
-- Handle loading, API error and missing station states
-- Responsive mobile and desktop interface
-
----
-
-## Built With
-
-- Angular 22
-- TypeScript
-- RxJS
-- Angular Signals
-- Reactive Forms
-- Angular HttpClient
-- Angular Router
-- Lucide Icons
-- Vitest
-- Bordeaux Métropole Open Data API
-- Vercel
-
----
-
-## Installation
-
-Clone the repository:
+To start a local development server, run:
 
 ```bash
-git clone https://github.com/m-amroune/bordeaux-mobility.git
-cd bordeaux-mobility
+ng serve
 ```
 
-Install dependencies:
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+## Code scaffolding
+
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
 ```bash
-npm install
+ng generate component component-name
 ```
 
-Start the development server:
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
 ```bash
-npm start
+ng generate --help
 ```
 
-Open `http://localhost:4200` in your browser. 
+## Building
+
+To build the project run:
+
+```bash
+ng build
+```
+
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+
+## Running unit tests
+
+To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+
+```bash
+ng test
+```
+
+## Running end-to-end tests
+
+For end-to-end (e2e) testing, run:
+
+```bash
+ng e2e
+```
+
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
