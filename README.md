@@ -1,59 +1,47 @@
-# BordeauxMobility
+# Bordeaux Mobility
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.0.
+Real-time bike station explorer for Bordeaux Métropole built with Angular and TypeScript.
 
-## Development server
+[Live Demo](https://bordeaux-mobility-m-a.vercel.app/)
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## About the Project
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Angular application using Bordeaux Métropole Open Data to explore bike stations and their real-time availability.
 
-## Code scaffolding
+The project focuses on modern Angular practices, RxJS, Signals, Reactive Forms and a mobile-first interface.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
+## Features
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- Real-time bike station availability
+- Search and availability filters
+- Station details with bike types, status and last update
+- Manual data refresh
+- Responsive mobile and desktop interface
 
-```bash
-ng generate --help
-```
+---
 
-## Building
+## Built With
 
-To build the project run:
+![Angular](https://img.shields.io/badge/Angular-22-DD0031?style=flat&logo=angular&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+![RxJS](https://img.shields.io/badge/RxJS-B7178C?style=flat&logo=reactivex&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat&logo=vitest&logoColor=white)
+![Lucide](https://img.shields.io/badge/Lucide-Icons-F56565?style=flat&logo=lucide&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white)
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Installation
 
 ```bash
-ng test
+git clone https://github.com/m-amroune/bordeaux-mobility.git
+cd bordeaux-mobility
+npm install
+npm start
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Open `http://localhost:4200`.
