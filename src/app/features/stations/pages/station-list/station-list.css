@@ -1,3 +1,4 @@
+/* Page layout */
 .station-list {
   padding: 20px 16px 32px;
 }
@@ -24,24 +25,57 @@ label {
   margin-bottom: 8px;
 }
 
+/* Search and filters */
+section[aria-label='Recherche de stations'] {
+  max-width: 640px;
+}
+/* Search */
+/* Search */
+.search-field {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.search-field svg {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+
+  width: 19px;
+  height: 19px;
+
+  color: #5e6669;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
 input[type='search'] {
   width: 100%;
-  padding: 12px 14px;
-  margin-bottom: 18px;
+  box-sizing: border-box;
+  padding: 12px 14px 12px 44px;
 
   font: inherit;
   color: #292e30;
 
   background: #fff;
   border: 1px solid #9ca3a6;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 input[type='search']:focus {
+  border-color: #285a70;
   outline: 2px solid #285a70;
-  outline-offset: 2px;
+  outline-offset: 1px;
 }
 
+
+/* Filters */
 fieldset {
   margin: 0;
   padding: 0;
@@ -79,19 +113,13 @@ legend {
 }
 
 
-.page-header p {
-  margin: 0 0 8px;
-}
-
-.page-header h1 {
-  margin: 0;
-}
-
+/* Page header and refresh */
 .page-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
+
   margin-bottom: 24px;
 }
 
@@ -137,23 +165,6 @@ legend {
 }
 
 .refresh-button:hover {
-  background: #d8e5e8;
-}
-
-.refresh-button:focus-visible {
-  outline: 2px solid #28734d;
-  outline-offset: 2px;
-}
-
-.refresh-button svg {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.refresh-button:hover {
   background: #e7ecea;
 }
 
@@ -166,6 +177,8 @@ legend {
   outline-offset: 2px;
 }
 
+
+/* Station list */
 .station-link,
 .station-link:visited {
   color: #285a70;
@@ -184,22 +197,69 @@ legend {
 }
 
 article {
+  width: 100%;
+  max-width: 520px;
   padding: 14px 0;
+  box-sizing: border-box;
+
   border-bottom: 1px solid #d9d2c5;
 }
 
 article h3 {
-  margin: 0 0 10px;
+  margin: 0;
 }
 
 article p {
   margin: 6px 0;
 }
 
+
+/* Favorite button */
+.station-heading {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+.favorite-button {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+
+  width: 44px;
+  height: 44px;
+  padding: 0;
+
+  color: #285a70;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+
+  cursor: pointer;
+}
+
+.favorite-button svg {
+  width: 21px;
+  height: 21px;
+}
+
+.favorite-button:hover {
+  background: #e7ecea;
+}
+
+.favorite-button:focus-visible {
+  outline: 2px solid #28734d;
+  outline-offset: 2px;
+}
+
+
+/* Station availability */
 .station-metrics {
   display: flex;
   align-items: center;
   gap: 24px;
+
   margin-top: 10px;
 }
 
@@ -219,8 +279,8 @@ article p {
 }
 
 .station-metric strong {
-  font-weight: 600;
   color: #292e30;
+  font-weight: 600;
 }
 
 .bikes-metric svg {
@@ -231,6 +291,8 @@ article p {
   color: #285a70;
 }
 
+
+/* Desktop */
 @media (min-width: 768px) {
   .station-list {
     max-width: 960px;

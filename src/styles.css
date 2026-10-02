@@ -1,4 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-sans/700.css';
 * {
   box-sizing: border-box;
 }
@@ -13,4 +17,24 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 500;
+
+  background: #f7f3ea;
+  color: #292e30;
+}
+
+.app-name {
+  margin: 16px 0 6px;
+  color: #285a70;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+@media (min-width: 768px) {
+  .app-name {
+    display: none;
+  }
 }

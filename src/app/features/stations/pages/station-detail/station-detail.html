@@ -2,53 +2,95 @@
   <header>
     <a routerLink="/">← Retour aux stations</a>
 
-    <p>Bordeaux Mobility</p>
+    <p class="app-name">Bordeaux Mobility</p>
     <h1>Détail de la station</h1>
   </header>
 
- @if (stationState$ | async; as state) {
-  @if (state.status === 'loading') {
-    <p>Chargement de la station...</p>
-  }
+  @if (stationState$ | async; as state) {
+    @if (state.status === 'loading') {
+      <p>Chargement de la station...</p>
+    }
 
-  @if (state.status === 'success') {
-    <section>
-      <h2>{{ state.station.name }}</h2>
-      <p>{{ state.station.city }}</p>
-    </section>
+    @if (state.status === 'success') {
+      <section class="station-summary">
+        <div class="station-title-row">
+          <h2>{{ state.station.name }}</h2>
 
-    <section aria-labelledby="availability-heading">
-      <h2 id="availability-heading">Disponibilité</h2>
+          <button
+            class="favorite-button"
+            type="button"
+            [attr.aria-label]="
+              favoritesService.isFavorite(state.station.id)
+                ? 'Retirer des favoris'
+                : 'Ajouter aux favoris'
+            "
+            [attr.title]="
+              favoritesService.isFavorite(state.station.id)
+                ? 'Retirer des favoris'
+                : 'Ajouter aux favoris'
+            "
+            (click)="favoritesService.toggleFavorite(state.station.id)"
+          >
+            <svg
+              lucideHeart
+              aria-hidden="true"
+              [attr.fill]="favoritesService.isFavorite(state.station.id) ? 'currentColor' : 'none'"
+            ></svg>
+          </button>
+        </div>
 
-      <p>Vélos disponibles : {{ state.station.bikesAvailable }}</p>
-      <p>Places disponibles : {{ state.station.docksAvailable }}</p>
-      <p>Vélos classiques : {{ state.station.classicBikesAvailable }}</p>
-      <p>Vélos électriques : {{ state.station.electricBikesAvailable }}</p>
-    </section>
+        <p class="station-city">{{ state.station.city }}</p>
+      </section>
 
-    <section aria-labelledby="information-heading">
-      <h2 id="information-heading">Informations</h2>
+      <section class="availability" aria-labelledby="availability-heading">
+        <h2 id="availability-heading">Disponibilité</h2>
 
-      <p>
-        Statut :
-        {{ state.station.status === 'CONNECTEE' ? 'En service' : state.station.status }}
-      </p>
+        <dl class="availability-grid">
+          <div>
+            <dt>Vélos disponibles</dt>
+            <dd>{{ state.station.bikesAvailable }}</dd>
+          </div>
 
-      <p>
-        Dernière mise à jour :
-        {{ state.station.updatedAt | date:"dd/MM/yyyy 'à' HH:mm" }}
-      </p>
-    </section>
-  }
+          <div>
+            <dt>Places disponibles</dt>
+            <dd>{{ state.station.docksAvailable }}</dd>
+          </div>
 
-  @if (state.status === 'not-found') {
-    <p>Station introuvable.</p>
-  }
+          <div>
+            <dt>Vélos classiques</dt>
+            <dd>{{ state.station.classicBikesAvailable }}</dd>
+          </div>
 
-  @if (state.status === 'error') {
-    <p>Impossible de charger la station.</p>
-  }
-} @else {
+          <div>
+            <dt>Vélos électriques</dt>
+            <dd>{{ state.station.electricBikesAvailable }}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="information-heading">
+        <h2 id="information-heading">Informations</h2>
+
+        <p>
+          Statut :
+          {{ state.station.status === 'CONNECTEE' ? 'En service' : state.station.status }}
+        </p>
+
+        <p>
+          Dernière mise à jour :
+          {{ state.station.updatedAt | date: "dd/MM/yyyy 'à' HH:mm" }}
+        </p>
+      </section>
+    }
+
+    @if (state.status === 'not-found') {
+      <p>Station introuvable.</p>
+    }
+
+    @if (state.status === 'error') {
+      <p>Impossible de charger la station.</p>
+    }
+  } @else {
     <p>Station introuvable.</p>
   }
 </main>

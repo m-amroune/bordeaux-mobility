@@ -3,7 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { LucideBike, LucideCircleParking } from '@lucide/angular';
+import { LucideBike, LucideCircleParking, LucideHeart } from '@lucide/angular';
 import {
   catchError,
   combineLatest,
@@ -17,15 +17,25 @@ import {
 } from 'rxjs';
 
 import { Stations } from '../../services/stations';
+import { Favorites } from '../../../favorites/services/favorites';
 
 @Component({
-  imports: [AsyncPipe, ReactiveFormsModule, RouterLink, LucideBike, LucideCircleParking],
+  imports: [
+    AsyncPipe,
+    ReactiveFormsModule,
+    RouterLink,
+    LucideBike,
+    LucideCircleParking,
+    LucideHeart,
+  ],
   selector: 'app-station-list',
   styleUrl: './station-list.css',
   templateUrl: './station-list.html',
 })
 export class StationList {
   private readonly stationsService = inject(Stations);
+
+  protected readonly favoritesService = inject(Favorites);
 
   protected readonly searchControl = new FormControl('', {
     nonNullable: true,

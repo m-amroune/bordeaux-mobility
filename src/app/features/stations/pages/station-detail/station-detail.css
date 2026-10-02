@@ -20,6 +20,125 @@ h2 {
   margin-top: 0;
 }
 
+
+
 section {
   margin-bottom: 24px;
+}
+
+.station-summary {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #d9d2c5;
+}
+
+.station-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.station-title-row h2 {
+  margin: 0;
+}
+
+.station-city {
+  margin: 8px 0 0;
+  color: #5e6669;
+}
+
+.station-detail .favorite-button {
+  display: grid;
+  place-items: center;
+
+  width: 44px;
+  height: 44px;
+  padding: 0;
+
+  color: #285a70;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+
+  cursor: pointer;
+}
+
+.station-detail .favorite-button svg {
+  width: 22px;
+  height: 22px;
+}
+
+.station-detail .favorite-button:hover {
+  background: #e7ecea;
+}
+
+.station-detail .favorite-button:focus-visible {
+  outline: 2px solid #28734d;
+  outline-offset: 2px;
+}
+
+.station-detail {
+  padding: 20px 16px 32px;
+}
+
+.availability {
+  padding: 24px 0;
+  border-bottom: 1px solid #d9d2c5;
+}
+
+.availability h2 {
+  margin: 0 0 18px;
+}
+
+.availability-grid {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.availability-grid div {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.availability-grid dt {
+  color: #4f585b;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.availability-grid dt::after {
+  content: ' :';
+}
+
+.availability-grid dd {
+  margin: 0;
+  color: #292e30;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.station-detail h1 {
+  font-size: 1.75rem;
+  line-height: 1.2;
+}
+
+.station-title-row h2 {
+  font-size: 1.35rem;
+  line-height: 1.25;
+}
+
+#availability-heading,
+#information-heading {
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+@media (min-width: 768px) {
+  .station-detail {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 24px 48px;
+  }
 }
