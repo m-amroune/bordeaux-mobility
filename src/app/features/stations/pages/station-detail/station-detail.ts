@@ -3,9 +3,11 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { catchError, map, of, startWith, switchMap } from 'rxjs';
 import { Stations } from '../../services/stations';
 import { AsyncPipe, DatePipe } from '@angular/common';
+import { Favorites } from '../../../favorites/services/favorites';
+import { LucideHeart } from '@lucide/angular';
 
 @Component({
-  imports: [RouterLink, AsyncPipe, DatePipe],
+  imports: [RouterLink, AsyncPipe, DatePipe, LucideHeart],
   selector: 'app-station-detail',
   styleUrl: './station-detail.css',
   templateUrl: './station-detail.html',
@@ -14,24 +16,25 @@ export class StationDetail {
   private readonly route = inject(ActivatedRoute);
   private readonly stationsService = inject(Stations);
 
+  protected readonly favoritesService = inject(Favorites);
+
   protected readonly stationId$ = this.route.paramMap.pipe(
-  map((params) => Number(params.get('id'))),
-);
+    map((params) => Number(params.get('id'))),
+  );
 
-protected readonly stationState$ = this.stationId$.pipe(
-  switchMap((stationId) =>
-    this.stationsService.getStations().pipe(
-      map((stations) => {
-        const station = stations.find((station) => station.id === stationId);
+  protected readonly stationState$ = this.stationId$.pipe(
+    switchMap((stationId) =>
+      this.stationsService.getStations().pipe(
+        map((stations) => {
+          const station = stations.find((station) => station.id === stationId);
 
-        return station
-          ? { status: 'success' as const, station }
-          : { status: 'not-found' as const };
-      }),
-      startWith({ status: 'loading' as const }),
-      catchError(() => of({ status: 'error' as const })),
+          return station
+            ? { status: 'success' as const, station }
+            : { status: 'not-found' as const };
+        }),
+        startWith({ status: 'loading' as const }),
+        catchError(() => of({ status: 'error' as const })),
+      ),
     ),
-  ),
-);
-
+  );
 }

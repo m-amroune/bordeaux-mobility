@@ -1,7 +1,7 @@
 <main class="station-list">
   <header class="page-header">
     <div>
-      <p>Bordeaux Mobility</p>
+      <p class="app-name">Bordeaux Mobility</p>
       <h1>Stations</h1>
     </div>
 
@@ -21,12 +21,20 @@
 
   <section aria-label="Recherche de stations">
     <label for="station-search">Rechercher une station</label>
-    <input
-      id="station-search"
-      type="search"
-      placeholder="Nom d'une station"
-      [formControl]="searchControl"
-    />
+
+    <div class="search-field">
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="7"></circle>
+        <path d="m20 20-3.5-3.5"></path>
+      </svg>
+
+      <input
+        id="station-search"
+        type="search"
+        placeholder="Ex. Gambetta, Mériadeck..."
+        [formControl]="searchControl"
+      />
+    </div>
     <fieldset>
       <legend>Filtres</legend>
 
@@ -72,11 +80,36 @@
 
           @for (station of state.stations; track station.id) {
             <article>
-              <h3>
-                <a class="station-link" [routerLink]="['/stations', station.id]">
-                  {{ station.name }}
-                </a>
-              </h3>
+              <div class="station-heading">
+                <h3>
+                  <a class="station-link" [routerLink]="['/stations', station.id]">
+                    {{ station.name }}
+                  </a>
+                </h3>
+
+                <button
+                  class="favorite-button"
+                  type="button"
+                  [attr.aria-label]="
+                    favoritesService.isFavorite(station.id)
+                      ? 'Retirer des favoris'
+                      : 'Ajouter aux favoris'
+                  "
+                  [attr.title]="
+                    favoritesService.isFavorite(station.id)
+                      ? 'Retirer des favoris'
+                      : 'Ajouter aux favoris'
+                  "
+                  (click)="favoritesService.toggleFavorite(station.id)"
+                >
+                  <svg
+                    lucideHeart
+                    aria-hidden="true"
+                    [attr.fill]="favoritesService.isFavorite(station.id) ? 'currentColor' : 'none'"
+                  ></svg>
+                </button>
+              </div>
+
               <div class="station-metrics">
                 <span class="station-metric bikes-metric">
                   <svg lucideBike aria-hidden="true"></svg>
@@ -89,7 +122,9 @@
                 <span class="station-metric docks-metric">
                   <svg lucideCircleParking aria-hidden="true"></svg>
                   <strong>{{ station.docksAvailable }}</strong>
-                  <span>places</span>
+                  <span>
+                    {{ station.docksAvailable === 1 ? 'place' : 'places' }}
+                  </span>
                 </span>
               </div>
             </article>

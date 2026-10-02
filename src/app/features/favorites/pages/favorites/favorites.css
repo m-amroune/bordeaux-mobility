@@ -1,20 +1,119 @@
 .favorites {
-  padding: 20px 16px;
+  padding: 20px 16px 32px;
 }
 
-header {
+.favorites header {
   margin-bottom: 24px;
 }
 
-header p {
-  margin: 0 0 8px;
+.favorites h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  line-height: 1.2;
 }
 
-h1,
-h2 {
-  margin-top: 0;
+.favorite-station {
+  padding: 16px 0;
+  border-bottom: 1px solid #d9d2c5;
 }
 
-section {
-  margin-bottom: 24px;
+.favorite-station-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.favorite-station-heading h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.3;
+}
+
+.station-link,
+.station-link:visited {
+  color: #285a70;
+  text-decoration: none;
+}
+
+.station-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.station-link:focus-visible {
+  outline: 2px solid #28734d;
+  outline-offset: 3px;
+}
+
+.favorite-button {
+  display: grid;
+  place-items: center;
+
+  width: 44px;
+  height: 44px;
+  padding: 0;
+
+  color: #285a70;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+
+  cursor: pointer;
+}
+
+.favorite-button svg {
+  width: 21px;
+  height: 21px;
+}
+
+.favorite-button:hover {
+  background: #e7ecea;
+}
+
+.favorite-button:focus-visible {
+  outline: 2px solid #28734d;
+  outline-offset: 2px;
+}
+
+.station-metrics {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin-top: 8px;
+}
+
+.station-metric {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  color: #3f474a;
+  font-size: 0.9rem;
+}
+
+.station-metric svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.bikes-metric svg {
+  color: #28734d;
+}
+
+.docks-metric svg {
+  color: #285a70;
+}
+
+@media (min-width: 768px) {
+  .favorites {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 24px 48px;
+  }
+  .favorite-station-heading {
+  justify-content: flex-start;
+}
 }

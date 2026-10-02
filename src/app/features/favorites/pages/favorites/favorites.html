@@ -1,12 +1,60 @@
 <main class="favorites">
   <header>
-    <p>Bordeaux Mobility</p>
+    <p class="app-name">Bordeaux Mobility</p>
     <h1>Favoris</h1>
   </header>
 
-  <section aria-labelledby="favorites-heading">
-    <h2 id="favorites-heading">Stations favorites</h2>
+  @if (favoriteStations$ | async; as stations) {
+    @if (stations.length === 0) {
+      <p>Aucune station favorite.</p>
+      <a routerLink="/">Voir les stations</a>
+    } @else {
+      <p>
+        {{ stations.length }}
+        {{ stations.length === 1 ? 'station favorite' : 'stations favorites' }}
+      </p>
 
-    <p>Vos stations favorites seront affichées ici.</p>
-  </section>
+      @for (station of stations; track station.id) {
+        <article class="favorite-station">
+          <div class="favorite-station-heading">
+            <h2>
+              <a class="station-link" [routerLink]="['/stations', station.id]">
+                {{ station.name }}
+              </a>
+            </h2>
+
+            <button
+              class="favorite-button"
+              type="button"
+              aria-label="Retirer des favoris"
+              title="Retirer des favoris"
+              (click)="favoritesService.toggleFavorite(station.id)"
+            >
+              <svg lucideHeart aria-hidden="true" fill="currentColor"></svg>
+            </button>
+          </div>
+
+          <div class="station-metrics">
+            <span class="station-metric bikes-metric">
+              <svg lucideBike aria-hidden="true"></svg>
+              <span>
+                {{ station.bikesAvailable }}
+                {{ station.bikesAvailable === 1 ? 'vélo disponible' : 'vélos disponibles' }}
+              </span>
+            </span>
+
+            <span class="station-metric docks-metric">
+              <svg lucideCircleParking aria-hidden="true"></svg>
+              <span>
+                {{ station.docksAvailable }}
+                {{ station.docksAvailable === 1 ? 'place' : 'places' }}
+              </span>
+            </span>
+          </div>
+        </article>
+      }
+    }
+  } @else {
+    <p>Chargement des favoris...</p>
+  }
 </main>
