@@ -3,7 +3,11 @@ import { Component, inject, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { LucideBike, LucideCircleParking, LucideHeart } from '@lucide/angular';
+import {
+  LucideBike,
+  LucideCircleParking,
+  LucideHeart,
+} from '@lucide/angular';
 import {
   catchError,
   combineLatest,
@@ -16,8 +20,8 @@ import {
   switchMap,
 } from 'rxjs';
 
-import { Stations } from '../../services/stations';
 import { Favorites } from '../../../favorites/services/favorites';
+import { Stations } from '../../services/stations';
 
 @Component({
   imports: [
@@ -33,10 +37,11 @@ import { Favorites } from '../../../favorites/services/favorites';
   templateUrl: './station-list.html',
 })
 export class StationList {
+  // Services
   private readonly stationsService = inject(Stations);
-
   protected readonly favoritesService = inject(Favorites);
 
+  // Search
   protected readonly searchControl = new FormControl('', {
     nonNullable: true,
   });
@@ -48,19 +53,26 @@ export class StationList {
     distinctUntilChanged(),
   );
 
+  // Availability filters
   protected readonly bikesAvailableOnly = signal(false);
   protected readonly docksAvailableOnly = signal(false);
 
-  private readonly bikesAvailableOnly$ = toObservable(this.bikesAvailableOnly);
+  private readonly bikesAvailableOnly$ = toObservable(
+    this.bikesAvailableOnly,
+  );
 
-  private readonly docksAvailableOnly$ = toObservable(this.docksAvailableOnly);
+  private readonly docksAvailableOnly$ = toObservable(
+    this.docksAvailableOnly,
+  );
 
+  // Manual refresh
   private readonly refresh$ = new Subject<void>();
 
   protected refreshStations(): void {
     this.refresh$.next();
   }
 
+  // Load station data and expose page states
   protected readonly stationsState$ = this.refresh$.pipe(
     startWith(undefined),
     switchMap(() =>
@@ -83,6 +95,7 @@ export class StationList {
     ),
   );
 
+  // Apply search and availability filters
   protected readonly filteredStationsState$ = combineLatest([
     this.stationsState$,
     this.searchTerm$,
@@ -97,11 +110,15 @@ export class StationList {
       return {
         ...state,
         stations: state.stations.filter((station) => {
-          const matchesSearch = station.name.toLocaleLowerCase('fr-FR').includes(searchTerm);
+          const matchesSearch = station.name
+            .toLocaleLowerCase('fr-FR')
+            .includes(searchTerm);
 
-          const matchesBikes = !bikesAvailableOnly || station.bikesAvailable > 0;
+          const matchesBikes =
+            !bikesAvailableOnly || station.bikesAvailable > 0;
 
-          const matchesDocks = !docksAvailableOnly || station.docksAvailable > 0;
+          const matchesDocks =
+            !docksAvailableOnly || station.docksAvailable > 0;
 
           return matchesSearch && matchesBikes && matchesDocks;
         }),

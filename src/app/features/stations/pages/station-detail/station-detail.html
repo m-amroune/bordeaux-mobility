@@ -1,4 +1,5 @@
 <main class="station-detail">
+  <!-- Page header -->
   <header>
     <a routerLink="/">← Retour aux stations</a>
 
@@ -7,11 +8,13 @@
   </header>
 
   @if (stationState$ | async; as state) {
+    <!-- Loading state -->
     @if (state.status === 'loading') {
       <p>Chargement de la station...</p>
     }
 
     @if (state.status === 'success') {
+      <!-- Station summary -->
       <section class="station-summary">
         <div class="station-title-row">
           <h2>{{ state.station.name }}</h2>
@@ -34,7 +37,11 @@
             <svg
               lucideHeart
               aria-hidden="true"
-              [attr.fill]="favoritesService.isFavorite(state.station.id) ? 'currentColor' : 'none'"
+              [attr.fill]="
+                favoritesService.isFavorite(state.station.id)
+                  ? 'currentColor'
+                  : 'none'
+              "
             ></svg>
           </button>
         </div>
@@ -42,6 +49,7 @@
         <p class="station-city">{{ state.station.city }}</p>
       </section>
 
+      <!-- Availability -->
       <section class="availability" aria-labelledby="availability-heading">
         <h2 id="availability-heading">Disponibilité</h2>
 
@@ -68,12 +76,17 @@
         </dl>
       </section>
 
+      <!-- Station information -->
       <section aria-labelledby="information-heading">
         <h2 id="information-heading">Informations</h2>
 
         <p>
           Statut :
-          {{ state.station.status === 'CONNECTEE' ? 'En service' : state.station.status }}
+          {{
+            state.station.status === 'CONNECTEE'
+              ? 'En service'
+              : state.station.status
+          }}
         </p>
 
         <p>
@@ -83,10 +96,12 @@
       </section>
     }
 
+    <!-- Not found state -->
     @if (state.status === 'not-found') {
       <p>Station introuvable.</p>
     }
 
+    <!-- Error state -->
     @if (state.status === 'error') {
       <p>Impossible de charger la station.</p>
     }

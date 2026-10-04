@@ -14,30 +14,33 @@ import { Favorites as FavoritesService } from '../../services/favorites';
 
 @Component({
   imports: [
-  AsyncPipe,
-  RouterLink,
-  LucideBike,
-  LucideCircleParking,
-  LucideHeart,
-],
+    AsyncPipe,
+    RouterLink,
+    LucideBike,
+    LucideCircleParking,
+    LucideHeart,
+  ],
   selector: 'app-favorites',
   styleUrl: './favorites.css',
   templateUrl: './favorites.html',
 })
 export class Favorites {
+  // Services
   private readonly stationsService = inject(Stations);
-private readonly favoritesService = inject(FavoritesService);
+  protected readonly favoritesService = inject(FavoritesService);
 
-private readonly favoriteIds$ = toObservable(
-  this.favoritesService.favoriteIds,
-);
+  // Favorite IDs as an Observable
+  private readonly favoriteIds$ = toObservable(
+    this.favoritesService.favoriteIds,
+  );
 
-protected readonly favoriteStations$ = combineLatest([
-  this.stationsService.getStations(),
-  this.favoriteIds$,
-]).pipe(
-  map(([stations, favoriteIds]) =>
-    stations.filter((station) => favoriteIds.includes(station.id)),
-  ),
-);
+  // Match favorite IDs with live station data
+  protected readonly favoriteStations$ = combineLatest([
+    this.stationsService.getStations(),
+    this.favoriteIds$,
+  ]).pipe(
+    map(([stations, favoriteIds]) =>
+      stations.filter((station) => favoriteIds.includes(station.id)),
+    ),
+  );
 }

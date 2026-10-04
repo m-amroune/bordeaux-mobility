@@ -1,3 +1,4 @@
+// Raw API response
 export interface StationsApiResponse {
   total_count: number;
   results: StationApiRecord[];
@@ -19,6 +20,7 @@ export interface StationApiRecord {
   };
 }
 
+// Station model used by the app
 export interface Station {
   id: number;
   name: string;
@@ -33,6 +35,7 @@ export interface Station {
   longitude: number;
 }
 
+// Convert API data to the app model
 export function mapStationApiRecord(record: StationApiRecord): Station {
   return {
     id: record.ident,

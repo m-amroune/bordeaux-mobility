@@ -1,10 +1,11 @@
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { LucideHeart } from '@lucide/angular';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { catchError, map, of, startWith, switchMap } from 'rxjs';
-import { Stations } from '../../services/stations';
-import { AsyncPipe, DatePipe } from '@angular/common';
+
 import { Favorites } from '../../../favorites/services/favorites';
-import { LucideHeart } from '@lucide/angular';
+import { Stations } from '../../services/stations';
 
 @Component({
   imports: [RouterLink, AsyncPipe, DatePipe, LucideHeart],
@@ -13,15 +14,17 @@ import { LucideHeart } from '@lucide/angular';
   templateUrl: './station-detail.html',
 })
 export class StationDetail {
+  // Services and route
   private readonly route = inject(ActivatedRoute);
   private readonly stationsService = inject(Stations);
-
   protected readonly favoritesService = inject(Favorites);
 
+  // Station ID from the route
   protected readonly stationId$ = this.route.paramMap.pipe(
     map((params) => Number(params.get('id'))),
   );
 
+  // Load the matching station and expose page states
   protected readonly stationState$ = this.stationId$.pipe(
     switchMap((stationId) =>
       this.stationsService.getStations().pipe(

@@ -2,6 +2,7 @@ import { Service, signal } from '@angular/core';
 
 @Service()
 export class Favorites {
+  // Persisted favorite station IDs
   private readonly storageKey = 'bordeaux-mobility-favorites';
 
   private readonly favoriteIdsSignal = signal<number[]>(
@@ -14,6 +15,7 @@ export class Favorites {
     return this.favoriteIdsSignal().includes(stationId);
   }
 
+  // Add or remove a favorite
   toggleFavorite(stationId: number): void {
     const currentIds = this.favoriteIdsSignal();
 
@@ -25,6 +27,7 @@ export class Favorites {
     localStorage.setItem(this.storageKey, JSON.stringify(nextIds));
   }
 
+  // Restore favorites from localStorage
   private readFavoriteIds(): number[] {
     const storedIds = localStorage.getItem(this.storageKey);
 
