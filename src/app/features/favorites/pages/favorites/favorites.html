@@ -1,19 +1,23 @@
 <main class="favorites">
+  <!-- Page header -->
   <header>
     <p class="app-name">Bordeaux Mobility</p>
     <h1>Favoris</h1>
   </header>
 
   @if (favoriteStations$ | async; as stations) {
+    <!-- Empty state -->
     @if (stations.length === 0) {
       <p>Aucune station favorite.</p>
       <a routerLink="/">Voir les stations</a>
     } @else {
+      <!-- Favorites count -->
       <p>
         {{ stations.length }}
         {{ stations.length === 1 ? 'station favorite' : 'stations favorites' }}
       </p>
 
+      <!-- Favorite stations -->
       @for (station of stations; track station.id) {
         <article class="favorite-station">
           <div class="favorite-station-heading">
@@ -34,17 +38,24 @@
             </button>
           </div>
 
+          <!-- Station availability -->
           <div class="station-metrics">
             <span class="station-metric bikes-metric">
               <svg lucideBike aria-hidden="true"></svg>
+
               <span>
                 {{ station.bikesAvailable }}
-                {{ station.bikesAvailable === 1 ? 'vélo disponible' : 'vélos disponibles' }}
+                {{
+                  station.bikesAvailable === 1
+                    ? 'vélo disponible'
+                    : 'vélos disponibles'
+                }}
               </span>
             </span>
 
             <span class="station-metric docks-metric">
               <svg lucideCircleParking aria-hidden="true"></svg>
+
               <span>
                 {{ station.docksAvailable }}
                 {{ station.docksAvailable === 1 ? 'place' : 'places' }}
@@ -55,6 +66,7 @@
       }
     }
   } @else {
+    <!-- Loading state -->
     <p>Chargement des favoris...</p>
   }
 </main>
