@@ -38,35 +38,56 @@ nav a.active {
   background: #285a70;
 }
 
+/* Data source */
+.data-source {
+  padding: 24px 16px 20px;
+
+  color: #667074;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.data-source a {
+  color: #285a70;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.data-source a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* Desktop navigation */
 @media (min-width: 768px) {
   :host {
     padding-bottom: 0;
   }
 
- nav {
-  position: static;
+  nav {
+    position: static;
 
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
-  width: 100%;
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 12px 24px;
-  box-sizing: border-box;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 14px 24px;
 
-  background: #f7f3ea;
-  border-top: 0;
-  border-bottom: 1px solid #d9d2c5;
-}
+    box-sizing: border-box;
+
+    background: #183f52;
+    border: 0;
+    box-shadow: 0 8px 30px rgb(24 63 82 / 12%);
+  }
 
   .nav-brand {
     display: block;
     margin-right: auto;
 
-   color: #62554a;
+    color: #ffffff;
     font-size: 1.05rem;
     font-weight: 700;
     letter-spacing: -0.01em;
@@ -74,21 +95,29 @@ nav a.active {
 
   nav a {
     flex: 0 0 auto;
-    padding: 10px 14px;
+    padding: 10px 16px;
 
-    color: #285a70;
+    color: #dce8ed;
     font-size: 0.95rem;
     font-weight: 600;
 
-    border-radius: 4px;
+    background: transparent;
+    border-radius: 9px;
+
+    transition:
+      color 160ms ease,
+      background 160ms ease,
+      transform 160ms ease;
   }
 
   nav a:hover {
-    background: #e7ecea;
+    color: #ffffff;
+    background: rgb(255 255 255 / 10%);
   }
 
   nav a.active {
-    color: #fff;
-    background: #285a70;
+    color: #183f52;
+    background: #ffffff;
+    box-shadow: 0 4px 14px rgb(0 0 0 / 12%);
   }
 }

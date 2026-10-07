@@ -1,53 +1,65 @@
 /* Page layout */
 .station-detail {
-  padding: 20px 16px 32px;
+  padding: 22px 16px 44px;
 }
 
 header {
-  margin-bottom: 24px;
+  margin-bottom: 26px;
 }
 
 header > a {
-  display: inline-block;
+  display: inline-flex;
   margin-bottom: 16px;
+
+  color: #285a70;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+header > a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 header p {
   margin: 0 0 8px;
 }
 
-h1,
-h2 {
-  margin-top: 0;
-}
+.station-detail h1 {
+  margin: 0;
 
-section {
-  margin-bottom: 24px;
+  font-size: 1.75rem;
+  line-height: 1.2;
 }
 
 
 /* Station summary */
 .station-summary {
-  padding-bottom: 20px;
-  border-bottom: 1px solid #d9d2c5;
+  margin-bottom: 22px;
+  padding: 4px 0 22px;
+
+  border-bottom: 1px solid #d8e0e1;
 }
 
 .station-title-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
 }
 
 .station-title-row h2 {
   margin: 0;
+
   font-size: 1.35rem;
   line-height: 1.25;
 }
 
 .station-city {
   margin: 8px 0 0;
-  color: #5e6669;
+
+  color: #667074;
+  font-weight: 500;
 }
 
 
@@ -55,17 +67,23 @@ section {
 .station-detail .favorite-button {
   display: grid;
   place-items: center;
+  flex-shrink: 0;
 
   width: 44px;
   height: 44px;
   padding: 0;
 
   color: #285a70;
+
   background: transparent;
   border: 0;
   border-radius: 50%;
 
   cursor: pointer;
+
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
 }
 
 .station-detail .favorite-button svg {
@@ -74,39 +92,121 @@ section {
 }
 
 .station-detail .favorite-button:hover {
-  background: #e7ecea;
+  background: #e3ecee;
+  transform: scale(1.06);
 }
 
 .station-detail .favorite-button:focus-visible {
-  outline: 2px solid #28734d;
+  outline: 2px solid #285a70;
   outline-offset: 2px;
+}
+
+
+/* Location */
+.station-location {
+  margin-bottom: 22px;
+  padding: 20px;
+
+  background: #ffffff;
+  border: 1px solid #d9e1e2;
+  border-radius: 16px;
+
+  box-shadow: 0 12px 30px rgb(24 63 82 / 7%);
+}
+
+.station-location h2 {
+  margin: 0 0 12px;
+
+  font-size: 1.15rem;
+}
+
+.station-location p {
+  margin: 0 0 14px;
+
+  color: #343c3f;
+}
+
+.station-location a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 9px 13px;
+
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+
+  background: #285a70;
+  border-radius: 9px;
+
+  transition:
+    background 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.station-location a:hover {
+  background: #1d485b;
+
+  box-shadow: 0 6px 16px rgb(24 63 82 / 18%);
+  transform: translateY(-1px);
+}
+
+.station-location a:focus-visible {
+  outline: 2px solid #285a70;
+  outline-offset: 3px;
 }
 
 
 /* Availability */
 .availability {
-  padding: 24px 0;
-  border-bottom: 1px solid #d9d2c5;
+  margin-bottom: 26px;
+  padding: 22px;
+
+  color: #f7fbfc;
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgb(91 176 146 / 26%),
+      transparent 42%
+    ),
+    linear-gradient(
+      145deg,
+      #183f52 0%,
+      #214f61 62%,
+      #285d63 100%
+    );
+
+  border-radius: 16px;
+
+  box-shadow: 0 16px 36px rgb(24 63 82 / 14%);
 }
 
 .availability h2 {
   margin: 0 0 18px;
+
+  color: #ffffff;
+  font-size: 1.25rem;
+  line-height: 1.3;
 }
 
 .availability-grid {
   display: grid;
-  gap: 10px;
+  gap: 11px;
+
   margin: 0;
 }
 
 .availability-grid div {
   display: flex;
   align-items: baseline;
-  gap: 5px;
+  gap: 6px;
 }
 
 .availability-grid dt {
-  color: #4f585b;
+  color: #dce8ea;
   font-size: 0.95rem;
   font-weight: 500;
 }
@@ -117,30 +217,46 @@ section {
 
 .availability-grid dd {
   margin: 0;
-  color: #292e30;
-  font-size: 0.95rem;
-  font-weight: 600;
+
+  color: #9de0c2;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 
-/* Typography */
-.station-detail h1 {
-  font-size: 1.75rem;
-  line-height: 1.2;
+/* Station information */
+section[aria-labelledby='information-heading'] {
+  padding-top: 2px;
 }
 
-#availability-heading,
 #information-heading {
+  margin: 0 0 18px;
+
   font-size: 1.25rem;
   line-height: 1.3;
+}
+
+section[aria-labelledby='information-heading'] p {
+  margin: 0 0 10px;
+
+  color: #4c5659;
+}
+
+section[aria-labelledby='information-heading'] p:first-of-type {
+  color: #292e30;
 }
 
 
 /* Desktop */
 @media (min-width: 768px) {
   .station-detail {
-    max-width: 960px;
+    max-width: 760px;
     margin: 0 auto;
-    padding: 32px 24px 48px;
+    padding: 36px 24px 60px;
+  }
+
+  .station-location,
+  .availability {
+    max-width: 560px;
   }
 }

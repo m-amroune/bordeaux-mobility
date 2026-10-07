@@ -37,16 +37,36 @@
             <svg
               lucideHeart
               aria-hidden="true"
-              [attr.fill]="
-                favoritesService.isFavorite(state.station.id)
-                  ? 'currentColor'
-                  : 'none'
-              "
+              [attr.fill]="favoritesService.isFavorite(state.station.id) ? 'currentColor' : 'none'"
             ></svg>
           </button>
         </div>
 
         <p class="station-city">{{ state.station.city }}</p>
+      </section>
+
+      <!-- Location -->
+      <section class="station-location" aria-labelledby="location-heading">
+        <h2 id="location-heading">Localisation</h2>
+
+        @if (state.address) {
+          <p>{{ state.address }}</p>
+        } @else {
+          <p>Adresse non disponible.</p>
+        }
+
+        <a
+          [href]="
+            'https://www.google.com/maps/search/?api=1&query=' +
+            state.station.latitude +
+            ',' +
+            state.station.longitude
+          "
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Voir sur la carte ↗
+        </a>
       </section>
 
       <!-- Availability -->
@@ -82,11 +102,7 @@
 
         <p>
           Statut :
-          {{
-            state.station.status === 'CONNECTEE'
-              ? 'En service'
-              : state.station.status
-          }}
+          {{ state.station.status === 'CONNECTEE' ? 'En service' : state.station.status }}
         </p>
 
         <p>

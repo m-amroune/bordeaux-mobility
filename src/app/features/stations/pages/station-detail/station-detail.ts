@@ -6,6 +6,7 @@ import { catchError, map, of, startWith, switchMap } from 'rxjs';
 
 import { Favorites } from '../../../favorites/services/favorites';
 import { Stations } from '../../services/stations';
+import { Geocoding } from '../../services/geocoding';
 
 @Component({
   imports: [RouterLink, AsyncPipe, DatePipe, LucideHeart],
@@ -17,6 +18,7 @@ export class StationDetail {
   // Services and route
   private readonly route = inject(ActivatedRoute);
   private readonly stationsService = inject(Stations);
+  private readonly geocodingService = inject(Geocoding);
   protected readonly favoritesService = inject(Favorites);
 
   // Station ID from the route
@@ -24,20 +26,37 @@ export class StationDetail {
     map((params) => Number(params.get('id'))),
   );
 
-  // Load the matching station and expose page states
-  protected readonly stationState$ = this.stationId$.pipe(
-    switchMap((stationId) =>
-      this.stationsService.getStations().pipe(
-        map((stations) => {
-          const station = stations.find((station) => station.id === stationId);
+ // Load the matching station, then resolve its address
+protected readonly stationState$ = this.stationId$.pipe(
+  switchMap((stationId) =>
+    this.stationsService.getStations().pipe(
+      switchMap((stations) => {
+        const station = stations.find((station) => station.id === stationId);
 
-          return station
-            ? { status: 'success' as const, station }
-            : { status: 'not-found' as const };
-        }),
-        startWith({ status: 'loading' as const }),
-        catchError(() => of({ status: 'error' as const })),
-      ),
+        if (!station) {
+          return of({ status: 'not-found' as const });
+        }
+
+        return this.geocodingService
+          .getAddress(station.latitude, station.longitude)
+          .pipe(
+            map((address) => ({
+              status: 'success' as const,
+              station,
+              address,
+            })),
+            catchError(() =>
+              of({
+                status: 'success' as const,
+                station,
+                address: null,
+              }),
+            ),
+          );
+      }),
+      startWith({ status: 'loading' as const }),
+      catchError(() => of({ status: 'error' as const })),
     ),
-  );
+  ),
+);
 }

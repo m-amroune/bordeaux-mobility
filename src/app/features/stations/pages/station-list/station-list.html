@@ -1,29 +1,26 @@
 <main class="station-list">
-  <!-- Page header -->
-  <header class="page-header">
-    <div>
-      <p class="app-name">Bordeaux Mobility</p>
-      <h1>Stations</h1>
+  <!-- Station controls -->
+  <section class="station-hero" aria-label="Recherche et filtres des stations">
+    <div class="page-header">
+      <div>
+        <p class="app-name">Bordeaux Mobility</p>
+        <h1>Stations</h1>
+      </div>
+
+      <button
+        class="refresh-button"
+        type="button"
+        aria-label="Actualiser les stations"
+        (click)="refreshStations()"
+      >
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
+          <path d="M20 11a8.1 8.1 0 0 0-15.5-2M4 4v5h5M4 13a8.1 8.1 0 0 0 15.5 2M20 20v-5h-5" />
+        </svg>
+
+        <span class="refresh-label">Actualiser</span>
+      </button>
     </div>
 
-    <button
-      class="refresh-button"
-      type="button"
-      aria-label="Actualiser les stations"
-      (click)="refreshStations()"
-    >
-      <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
-        <path
-          d="M20 11a8.1 8.1 0 0 0-15.5-2M4 4v5h5M4 13a8.1 8.1 0 0 0 15.5 2M20 20v-5h-5"
-        />
-      </svg>
-
-      <span class="refresh-label">Actualiser</span>
-    </button>
-  </header>
-
-  <!-- Search and filters -->
-  <section aria-label="Recherche de stations">
     <label for="station-search">Rechercher une station</label>
 
     <div class="search-field">
@@ -45,7 +42,6 @@
 
       <label class="filter-row">
         <span>Vélos disponibles</span>
-
         <input
           type="checkbox"
           [checked]="bikesAvailableOnly()"
@@ -55,7 +51,6 @@
 
       <label class="filter-row">
         <span>Places disponibles</span>
-
         <input
           type="checkbox"
           [checked]="docksAvailableOnly()"
@@ -90,73 +85,70 @@
           <p>{{ state.stations.length }} stations</p>
 
           <!-- Station list -->
-          @for (station of state.stations; track station.id) {
-            <article>
-              <div class="station-heading">
-                <h3>
-                  <a
-                    class="station-link"
-                    [routerLink]="['/stations', station.id]"
-                  >
-                    {{ station.name }}
-                  </a>
-                </h3>
+          <div class="station-grid">
+            @for (station of state.stations; track station.id) {
+              <article>
+                <div class="station-heading">
+                  <h3>
+                    <a class="station-link" [routerLink]="['/stations', station.id]">
+                      <span>{{ station.name }}</span>
 
-                <button
-                  class="favorite-button"
-                  type="button"
-                  [attr.aria-label]="
-                    favoritesService.isFavorite(station.id)
-                      ? 'Retirer des favoris'
-                      : 'Ajouter aux favoris'
-                  "
-                  [attr.title]="
-                    favoritesService.isFavorite(station.id)
-                      ? 'Retirer des favoris'
-                      : 'Ajouter aux favoris'
-                  "
-                  (click)="favoritesService.toggleFavorite(station.id)"
-                >
-                  <svg
-                    lucideHeart
-                    aria-hidden="true"
-                    [attr.fill]="
+                      <span class="detail-link-icon" aria-hidden="true">
+                        <svg class="detail-chevron" lucideChevronRight></svg>
+                      </span>
+                    </a>
+                  </h3>
+
+                  <button
+                    class="favorite-button"
+                    type="button"
+                    [attr.aria-label]="
                       favoritesService.isFavorite(station.id)
-                        ? 'currentColor'
-                        : 'none'
+                        ? 'Retirer des favoris'
+                        : 'Ajouter aux favoris'
                     "
-                  ></svg>
-                </button>
-              </div>
+                    [attr.title]="
+                      favoritesService.isFavorite(station.id)
+                        ? 'Retirer des favoris'
+                        : 'Ajouter aux favoris'
+                    "
+                    (click)="favoritesService.toggleFavorite(station.id)"
+                  >
+                    <svg
+                      lucideHeart
+                      aria-hidden="true"
+                      [attr.fill]="
+                        favoritesService.isFavorite(station.id) ? 'currentColor' : 'none'
+                      "
+                    ></svg>
+                  </button>
+                </div>
 
-              <!-- Station availability -->
-              <div class="station-metrics">
-                <span class="station-metric bikes-metric">
-                  <svg lucideBike aria-hidden="true"></svg>
+                <!-- Station availability -->
+                <div class="station-metrics">
+                  <span class="station-metric bikes-metric">
+                    <svg lucideBike aria-hidden="true"></svg>
 
-                  <strong>{{ station.bikesAvailable }}</strong>
+                    <strong>{{ station.bikesAvailable }}</strong>
 
-                  <span>
-                    {{
-                      station.bikesAvailable === 1
-                        ? 'vélo disponible'
-                        : 'vélos disponibles'
-                    }}
+                    <span>
+                      {{ station.bikesAvailable === 1 ? 'vélo disponible' : 'vélos disponibles' }}
+                    </span>
                   </span>
-                </span>
 
-                <span class="station-metric docks-metric">
-                  <svg lucideCircleParking aria-hidden="true"></svg>
+                  <span class="station-metric docks-metric">
+                    <svg lucideCircleParking aria-hidden="true"></svg>
 
-                  <strong>{{ station.docksAvailable }}</strong>
+                    <strong>{{ station.docksAvailable }}</strong>
 
-                  <span>
-                    {{ station.docksAvailable === 1 ? 'place' : 'places' }}
+                    <span>
+                      {{ station.docksAvailable === 1 ? 'place' : 'places' }}
+                    </span>
                   </span>
-                </span>
-              </div>
-            </article>
-          }
+                </div>
+              </article>
+            }
+          </div>
         }
       }
     }
