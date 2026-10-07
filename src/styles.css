@@ -3,6 +3,17 @@
 @import '@fontsource/ibm-plex-sans/500.css';
 @import '@fontsource/ibm-plex-sans/600.css';
 @import '@fontsource/ibm-plex-sans/700.css';
+@import '@fontsource/sora/600.css';
+@import '@fontsource/sora/700.css';
+
+/* Display typography */
+.app-name,
+h1,
+h2,
+h3,
+.station-link {
+  font-family: 'Sora', sans-serif;
+}
 * {
   box-sizing: border-box;
 }
@@ -20,14 +31,24 @@ body {
 
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 500;
-
-  background: #f7f3ea;
+background:
+  radial-gradient(
+    circle at 15% 0%,
+    rgb(40 90 112 / 7%),
+    transparent 32rem
+  ),
+  radial-gradient(
+    circle at 90% 100%,
+    rgb(40 115 77 / 4%),
+    transparent 36rem
+  ),
+  #f3f5f4;
   color: #292e30;
 }
 
 .app-name {
   margin: 16px 0 6px;
-  color: #285a70;
+ color: #285a70;
   font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: 0.01em;

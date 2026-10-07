@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { combineLatest, map } from 'rxjs';
 import {
   LucideBike,
+  LucideChevronRight,
   LucideCircleParking,
   LucideHeart,
 } from '@lucide/angular';
@@ -19,6 +20,7 @@ import { Favorites as FavoritesService } from '../../services/favorites';
     LucideBike,
     LucideCircleParking,
     LucideHeart,
+    LucideChevronRight,
   ],
   selector: 'app-favorites',
   styleUrl: './favorites.css',

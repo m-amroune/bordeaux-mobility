@@ -1,8 +1,9 @@
 <main class="favorites">
   <!-- Page header -->
-  <header>
+  <header class="favorites-header">
     <p class="app-name">Bordeaux Mobility</p>
     <h1>Favoris</h1>
+    <p class="favorites-subtitle">Vos stations enregistrées</p>
   </header>
 
   @if (favoriteStations$ | async; as stations) {
@@ -12,58 +13,60 @@
       <a routerLink="/">Voir les stations</a>
     } @else {
       <!-- Favorites count -->
-      <p>
+      <p class="favorites-count">
         {{ stations.length }}
         {{ stations.length === 1 ? 'station favorite' : 'stations favorites' }}
       </p>
 
       <!-- Favorite stations -->
-      @for (station of stations; track station.id) {
-        <article class="favorite-station">
-          <div class="favorite-station-heading">
-            <h2>
-              <a class="station-link" [routerLink]="['/stations', station.id]">
-                {{ station.name }}
-              </a>
-            </h2>
+      <div class="favorites-grid">
+        @for (station of stations; track station.id) {
+          <article class="favorite-station">
+            <div class="favorite-station-heading">
+              <h2>
+                <a class="station-link" [routerLink]="['/stations', station.id]">
+                  <span>{{ station.name }}</span>
 
-            <button
-              class="favorite-button"
-              type="button"
-              aria-label="Retirer des favoris"
-              title="Retirer des favoris"
-              (click)="favoritesService.toggleFavorite(station.id)"
-            >
-              <svg lucideHeart aria-hidden="true" fill="currentColor"></svg>
-            </button>
-          </div>
+                  <span class="detail-link-icon" aria-hidden="true">
+                    <svg class="detail-chevron" lucideChevronRight></svg>
+                  </span>
+                </a>
+              </h2>
 
-          <!-- Station availability -->
-          <div class="station-metrics">
-            <span class="station-metric bikes-metric">
-              <svg lucideBike aria-hidden="true"></svg>
+              <button
+                class="favorite-button"
+                type="button"
+                aria-label="Retirer des favoris"
+                title="Retirer des favoris"
+                (click)="favoritesService.toggleFavorite(station.id)"
+              >
+                <svg lucideHeart aria-hidden="true" fill="currentColor"></svg>
+              </button>
+            </div>
 
-              <span>
-                {{ station.bikesAvailable }}
-                {{
-                  station.bikesAvailable === 1
-                    ? 'vélo disponible'
-                    : 'vélos disponibles'
-                }}
+            <!-- Station availability -->
+            <div class="station-metrics">
+              <span class="station-metric bikes-metric">
+                <svg lucideBike aria-hidden="true"></svg>
+
+                <span>
+                  {{ station.bikesAvailable }}
+                  {{ station.bikesAvailable === 1 ? 'vélo disponible' : 'vélos disponibles' }}
+                </span>
               </span>
-            </span>
 
-            <span class="station-metric docks-metric">
-              <svg lucideCircleParking aria-hidden="true"></svg>
+              <span class="station-metric docks-metric">
+                <svg lucideCircleParking aria-hidden="true"></svg>
 
-              <span>
-                {{ station.docksAvailable }}
-                {{ station.docksAvailable === 1 ? 'place' : 'places' }}
+                <span>
+                  {{ station.docksAvailable }}
+                  {{ station.docksAvailable === 1 ? 'place' : 'places' }}
+                </span>
               </span>
-            </span>
-          </div>
-        </article>
-      }
+            </div>
+          </article>
+        }
+      </div>
     }
   } @else {
     <!-- Loading state -->

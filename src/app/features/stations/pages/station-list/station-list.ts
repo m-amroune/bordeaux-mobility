@@ -3,11 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import {
-  LucideBike,
-  LucideCircleParking,
-  LucideHeart,
-} from '@lucide/angular';
+import { LucideBike, LucideChevronRight, LucideCircleParking, LucideHeart } from '@lucide/angular';
 import {
   catchError,
   combineLatest,
@@ -31,6 +27,7 @@ import { Stations } from '../../services/stations';
     LucideBike,
     LucideCircleParking,
     LucideHeart,
+    LucideChevronRight,
   ],
   selector: 'app-station-list',
   styleUrl: './station-list.css',
@@ -57,13 +54,9 @@ export class StationList {
   protected readonly bikesAvailableOnly = signal(false);
   protected readonly docksAvailableOnly = signal(false);
 
-  private readonly bikesAvailableOnly$ = toObservable(
-    this.bikesAvailableOnly,
-  );
+  private readonly bikesAvailableOnly$ = toObservable(this.bikesAvailableOnly);
 
-  private readonly docksAvailableOnly$ = toObservable(
-    this.docksAvailableOnly,
-  );
+  private readonly docksAvailableOnly$ = toObservable(this.docksAvailableOnly);
 
   // Manual refresh
   private readonly refresh$ = new Subject<void>();
@@ -110,15 +103,11 @@ export class StationList {
       return {
         ...state,
         stations: state.stations.filter((station) => {
-          const matchesSearch = station.name
-            .toLocaleLowerCase('fr-FR')
-            .includes(searchTerm);
+          const matchesSearch = station.name.toLocaleLowerCase('fr-FR').includes(searchTerm);
 
-          const matchesBikes =
-            !bikesAvailableOnly || station.bikesAvailable > 0;
+          const matchesBikes = !bikesAvailableOnly || station.bikesAvailable > 0;
 
-          const matchesDocks =
-            !docksAvailableOnly || station.docksAvailable > 0;
+          const matchesDocks = !docksAvailableOnly || station.docksAvailable > 0;
 
           return matchesSearch && matchesBikes && matchesDocks;
         }),
